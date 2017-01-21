@@ -93,19 +93,20 @@
   _.reject = function(collection, test) {
     // TIP: see if you can re-use _.filter() here, without simply
     // copying code in and modifying it
-    
-
+    return _.filter(collection, function(){
+       test(collection[i]) === false;
+    })
   };
 
   // Produce a duplicate-free version of the array.
   _.uniq = function(array) {
     var uniqueElements = [];
 
-    for (var i = 0; i < array.length; i++) {
-      if (uniqueElements.indexOf(array[i]) === -1){
-        uniqueElements.push(array[i]);
+    _.each(array, function(ele, i, arr){
+      if (_.indexOf(uniqueElements, ele) === -1){
+        uniqueElements.push(ele);
       }
-    }
+    })
 
     return uniqueElements;
   };
@@ -164,6 +165,13 @@
   //   }); // should be 5, regardless of the iterator function passed in
   //          No accumulator is given so the first element is used.
   _.reduce = function(collection, iterator, accumulator) {
+    accumulator = accumulator || 0;
+
+    for (var i = 0; i < collection.length; i++) {
+      accumulator += iterator(accumulator, collection[i], i, collection);
+    }
+
+    return accumulator;
   };
 
   // Determine if the array or object contains a given value (using `===`).
