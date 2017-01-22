@@ -198,7 +198,6 @@
     }, false);
   };
 
-
   // Determine whether all of the elements match a truth test.
   _.every = function(collection, iterator) {
     if (iterator === undefined) {
@@ -221,15 +220,13 @@
       var iterator = _.identity;
     }
 
-      return _.reduce(collection, function(accum, item){
-        if (iterator(item)){
-          return true;
-        }
-        return accum;
-      }, false);
-  //  return _.every(collection, function(){})
+    return _.reduce(collection, function(accum, item){
+      if (iterator(item)){
+        return true;
+      }
+      return accum;
+    }, false);
   };
-
 
   /**
    * OBJECTS
@@ -277,7 +274,6 @@
     return obj;
   };
 
-
   /**
    * FUNCTIONS
    * =========
@@ -324,11 +320,11 @@
       var argArray = [].slice.call(arguments);
       var argString = JSON.stringify(arguments);
 
-      if (results[argString] === undefined){
-        results[argString] = func.apply(this, argArray);
+      if (results[argString] === undefined) {
+        return results[argString] = func.apply(this, argArray);
+      } else {
+        return results[argString];
       }
-
-      return results;
     }
   };
 
@@ -345,7 +341,6 @@
       func.apply(this, args);
     }, wait);
   };
-
 
   /**
    * ADVANCED COLLECTION OPERATIONS
@@ -373,7 +368,6 @@
     return shuffled;
   };
 
-
   /**
    * ADVANCED
    * =================
@@ -400,6 +394,7 @@
   // Example:
   // _.zip(['a','b','c','d'], [1,2,3]) returns [['a',1], ['b',2], ['c',3], ['d',undefined]]
   _.zip = function() {
+
   };
 
   // Takes a multidimensional array and converts it to a one-dimensional array.
