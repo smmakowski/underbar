@@ -201,15 +201,33 @@
 
   // Determine whether all of the elements match a truth test.
   _.every = function(collection, iterator) {
-    // TIP: Try re-using reduce() here.
+    if (iterator === undefined) {
+      var iterator = _.identity;
+    }
 
+      return _.reduce(collection, function(accum, item){
+        if (!iterator(item)){
+          return false;
+        }
+        return accum;
+      }, true);
   };
 
   // Determine whether any of the elements pass a truth test. If no iterator is
   // provided, provide a default one
   _.some = function(collection, iterator) {
     // TIP: There's a very clever way to re-use every() here.
+    if (iterator === undefined) {
+      var iterator = _.identity;
+    }
 
+      return _.reduce(collection, function(accum, item){
+        if (iterator(item)){
+          return true;
+        }
+        return accum;
+      }, false);
+  //  return _.every(collection, function(){})
   };
 
 
@@ -300,6 +318,7 @@
   // already computed the result for the given argument and return that value
   // instead if possible.
   _.memoize = function(func) {
+
   };
 
   // Delays a function for the given number of milliseconds, and then calls
@@ -309,6 +328,7 @@
   // parameter. For example _.delay(someFunction, 500, 'a', 'b') will
   // call someFunction('a', 'b') after 500ms
   _.delay = function(func, wait) {
+
   };
 
 
@@ -323,6 +343,19 @@
   // input array. For a tip on how to make a copy of an array, see:
   // http://mdn.io/Array.prototype.slice
   _.shuffle = function(array) {
+    var preshuffled = array.slice(0);
+    var shuffled = [];
+    var usedIdxs = [];
+
+    while (shuffled.length !== preshuffled.length) {
+      var idx = Math.floor(Math.random() * preshuffled.length);
+
+      if (_.indexOf(usedIdxs, idx) === -1) {
+        shuffled.push(preshuffled[idx]);
+        usedIdxs.push(idx);
+      }
+    }
+    return shuffled;
   };
 
 
