@@ -405,10 +405,16 @@
       var currArr = arguments[i];
 
       for (var j = 0; j < currArr.length; j++){
-        if (zipped[i] === undefined){
-          zipped.push([currArr[i]]);
+        if (zipped[j] === undefined){
+          zipped.push([currArr[j]]);
         } else {
-          zipped[i].push(currArr[i]);
+          zipped[j].push(currArr[j]);
+        }
+
+        for (var k = 0; k < zipped.length; k++){
+          if (currArr[k] === undefined){
+            zipped[k].push(undefined);
+          }
         }
       }
     }
