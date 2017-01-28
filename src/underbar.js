@@ -394,6 +394,25 @@
   // Example:
   // _.zip(['a','b','c','d'], [1,2,3]) returns [['a',1], ['b',2], ['c',3], ['d',undefined]]
   _.zip = function() {
+    var zipped = arguments[0];
+    // turn elemetns into arrays
+    zipped = _.map(zipped, function(e){
+      return [e];
+    });
+
+    for (var i = 1; i < arguments.length; i++) { // iterate through rest of args
+      // go through the argument array
+      var currArr = arguments[i];
+
+      for (var j = 0; j < currArr.length; j++){
+        if (zipped[i] === undefined){
+          zipped.push([currArr[i]]);
+        } else {
+          zipped[i].push(currArr[i]);
+        }
+      }
+    }
+    return zipped;
   };
 
   // Takes a multidimensional array and converts it to a one-dimensional array.
@@ -423,6 +442,23 @@
   // Take the difference between one array and a number of other arrays.
   // Only the elements present in just the first array will remain.
   _.difference = function(array) {
+    var differences = [];
+    var firstArr = arguments[0];
+
+    /// iterate through firstArr
+    for (var i = 0; i < firstArr.length; i++){
+      var isDifferent = true;
+    // iterate through rest of arguments
+      for (var j = 1; j < arguments.length; j++){
+        if (_.indexOf(arguments[j], firstArr[i]) !== -1){
+          isDifferent = false;
+        }
+     }
+      if (isDifferent) {
+        differences.push(firstArr[i]);
+      }
+    }
+    return differences;
   };
 
   // Returns a function, that, when invoked, will only be triggered at most once
